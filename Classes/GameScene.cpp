@@ -9,14 +9,12 @@
 #include "GameScene.h"
 
 GameScene::GameScene()
-
 {
     
 }
 
 GameScene::~GameScene()
 {
-  
 }
 
 Scene *GameScene::createGameScene()
@@ -49,23 +47,50 @@ bool GameScene::init()
     auto window_size = Director::getInstance()->getWinSize();
     
     //床
-    auto wall = Sprite::create();
-    wall->setPosition(150, 0);
-    wall->setTextureRect(Rect(0,0,1000,100));
-    wall->setColor(Color3B(255,255,255));
+    auto floor = Sprite::create();
+    floor->setPosition(500, 0);
+    floor->setTextureRect(Rect(0,0,1000,100));
+    floor->setColor(Color3B(255,255,255));
+    
+    auto left_wall =  Sprite::create();
+    left_wall->setPosition(5, 500);
+    left_wall->setTextureRect(Rect(0,0,10,1000));
+    left_wall->setColor(Color3B(255,255,255));
+    
+    auto right_wall =  Sprite::create();
+    right_wall->setPosition(640, 500);
+    right_wall->setTextureRect(Rect(0,0,10,1000));
+    right_wall->setColor(Color3B(255,255,255));
+    
     //wall->setRotation(10.0f);
     //反発係数と摩擦係数
     auto material = PHYSICSBODY_MATERIAL_DEFAULT;
     material.restitution = 0.0f;
     material.friction = 0.0f;
     
-    auto pWall = PhysicsBody::createBox(wall->getContentSize(), material);
+    auto pWall = PhysicsBody::createBox(floor->getContentSize(), material);
     //重力干渉を受けるか
     pWall->setDynamic(false);
     //回転させるか
     pWall->setRotationEnable(false);
-    wall->setPhysicsBody(pWall);
-    addChild(wall);
+    floor->setPhysicsBody(pWall);
+    addChild(floor);
+    
+    auto pright_wall = PhysicsBody::createBox(right_wall->getContentSize(), material);
+    //重力干渉を受けるか
+    pright_wall->setDynamic(false);
+    //回転させるか
+    pright_wall->setRotationEnable(false);
+    right_wall->setPhysicsBody(pright_wall);
+    addChild(right_wall);
+    
+    auto pleft_wall = PhysicsBody::createBox(left_wall->getContentSize(), material);
+    //重力干渉を受けるか
+    pleft_wall->setDynamic(false);
+    //回転させるか
+    pleft_wall->setRotationEnable(false);
+    left_wall->setPhysicsBody(pleft_wall);
+    addChild(left_wall);
     
     
     //event listener
@@ -83,6 +108,8 @@ bool GameScene::init()
     
     //優先度100でディスパッチャーに登録
     this->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 100);
+    
+    scheduleUpdate();
     
     return true;
 }
@@ -131,6 +158,17 @@ void GameScene::createSprite(Vec2 &pos){
     auto pBall = PhysicsBody::createCircle(50);
     pBall->setDynamic(true);
     pBall->setRotationEnable(true);
+    
+    
+    _bollArray.push_back(sprite);
+    addChild(sprite);
     sprite->setPhysicsBody(pBall);
-    this->addChild(sprite);
+}
+
+void GameScene::update(float dt) {
+    for (auto targetObject : _bollArray)
+    {
+        
+    }
+    _bollArray.clear();
 }

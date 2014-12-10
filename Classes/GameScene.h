@@ -24,14 +24,15 @@ public:
     ~GameScene();
     
     void createSprite(Vec2 &pos);
+    void update(float dt);
     
     //touch
     void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
     void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
     void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
     
-private:
-    Scene *back_wall;
+protected:
+    std::vector<Sprite*> _bollArray;
 };
 
 #endif /* defined(__TumTum_Base__GameScene__) */
