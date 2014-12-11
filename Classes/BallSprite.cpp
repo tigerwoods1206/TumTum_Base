@@ -66,7 +66,7 @@ void BallSprite::setBallContState(ballContactState state) {
     if (state == ballContactState::kFloorContact || ballContactState::kSecondContact) {
         //cpSpaceAddPostStepCallback
         //body->setDynamic(false);
-        Vec2 ver = Vec2(0, 0);
+        Vec2 ver = Vec2(0, 0.1);
         body->setVelocity(ver);
     }
     else {

@@ -148,6 +148,7 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
 #pragma mark update
 void GameScene_Chipmunk::update(float dt) {
     this->delTouchedBalls();
+    this->refillBoll();
 }
 
 
@@ -278,9 +279,20 @@ void GameScene_Chipmunk::fillBoll() {
     }
 }
 
-Rect GameScene_Chipmunk::fillBoll_createRect(Size size, Vec2 pos)
+void GameScene_Chipmunk::refillBoll()
 {
-    return Rect(pos.x, pos.y, size.width, size.height);
+    
+    if ((int)_delballPos.size()==0) {
+        return;
+    }
+    auto window_size = Director::getInstance()->getWinSize();
+    for (Vec2 curPos : _delballPos) {
+        Vec2 refilPos = Vec2(curPos.x, window_size.height);
+        this->createSprite(refilPos);
+    }
+    
+    _delballPos.clear();
+    
 }
 
 #pragma mark ---------
@@ -294,6 +306,7 @@ void GameScene_Chipmunk::delTouchedBalls() {
     for( tempIterator = _bollArray.begin(); tempIterator != _bollArray.end(); tempIterator++ ) {
          BallSprite *ball = (BallSprite *)*tempIterator;
         if (ball->getDeleteState()==BallSprite::deleteState::kDelete) {
+            _delballPos.push_back(ball->getPosition());
             ball->removeFromParent();
         }
         else {

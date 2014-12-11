@@ -52,6 +52,8 @@ private:
     void fillBoll();
     //消された分のボールを補充
     void refillBoll();
+    std::vector<Vec2> _delballPos;
+    
     //ボールが壁に接触している事を検知
     void isContactWall(Rect box);
     
