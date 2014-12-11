@@ -62,7 +62,8 @@
 		50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629517ECD46A001EB2F8 /* Icon-100.png */; };
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
-		76FF31331A383D2E00C30762 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76FF31311A383D2E00C30762 /* GameScene.cpp */; };
+		76052C411A3953FB005A5A40 /* BallSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76052C3F1A3953FB005A5A40 /* BallSprite.cpp */; };
+		76FF31331A383D2E00C30762 /* GameScene_Chipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */; };
 		76FF31381A38503600C30762 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 76FF31371A38503600C30762 /* ball.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -262,8 +263,10 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
-		76FF31311A383D2E00C30762 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = ../Classes/GameScene.cpp; sourceTree = "<group>"; };
-		76FF31321A383D2E00C30762 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = ../Classes/GameScene.h; sourceTree = "<group>"; };
+		76052C3F1A3953FB005A5A40 /* BallSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BallSprite.cpp; path = ../Classes/BallSprite.cpp; sourceTree = "<group>"; };
+		76052C401A3953FB005A5A40 /* BallSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallSprite.h; path = ../Classes/BallSprite.h; sourceTree = "<group>"; };
+		76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene_Chipmunk.cpp; path = ../Classes/GameScene_Chipmunk.cpp; sourceTree = "<group>"; };
+		76FF31321A383D2E00C30762 /* GameScene_Chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene_Chipmunk.h; path = ../Classes/GameScene_Chipmunk.h; sourceTree = "<group>"; };
 		76FF31371A38503600C30762 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -345,8 +348,10 @@
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
-				76FF31311A383D2E00C30762 /* GameScene.cpp */,
-				76FF31321A383D2E00C30762 /* GameScene.h */,
+				76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */,
+				76FF31321A383D2E00C30762 /* GameScene_Chipmunk.h */,
+				76052C3F1A3953FB005A5A40 /* BallSprite.cpp */,
+				76052C401A3953FB005A5A40 /* BallSprite.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -677,10 +682,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				76052C411A3953FB005A5A40 /* BallSprite.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
-				76FF31331A383D2E00C30762 /* GameScene.cpp in Sources */,
+				76FF31331A383D2E00C30762 /* GameScene_Chipmunk.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
