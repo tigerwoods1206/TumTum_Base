@@ -150,25 +150,23 @@ void GameScene_Chipmunk::update(float dt) {
 #pragma mark ---------
 #pragma mark タップ処理
 void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
-    Point location  = touches.at(0)->getLocationInView();
-    Vec2 f_location = Vec2(location.x, location.y);
-    
-    for (auto targetObject : _bollArray)
-    {
-        BallSprite *ball = (BallSprite *)targetObject;
-        
-        if (ball->isInCircle(f_location, this)) {
-            ball->setDeleteState(BallSprite::deleteState::kDelete);
-        }
-    }
 
-    
-    return;
 }
 
 void GameScene_Chipmunk::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
     
-    return;
+    Director* pDirector = CCDirector::getInstance();
+    Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
+    
+    for (auto boll : _bollArray) {
+        Rect targetBox = boll->getBoundingBox();
+        if (targetBox.containsPoint(touchPoint))
+        {
+            boll->setDeleteState(BallSprite::deleteState::kDelete);
+            return;
+        }
+    }
+
 }
 void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
     // this will return x, y coordinate
