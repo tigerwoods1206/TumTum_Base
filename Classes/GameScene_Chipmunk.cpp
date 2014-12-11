@@ -133,7 +133,8 @@ bool GameScene_Chipmunk::init()
     return true;
 }
 
-
+#pragma mark ---------
+#pragma mark ボール生成
 BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
     BallSprite *ball = BallSprite::createBallSprite(this, "ball.png");
     ball->setCenter(pos);
@@ -142,6 +143,9 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
     return ball;
 }
 
+
+#pragma mark ---------
+#pragma mark update
 void GameScene_Chipmunk::update(float dt) {
     this->delTouchedBalls();
 }
