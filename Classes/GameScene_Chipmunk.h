@@ -47,7 +47,6 @@ public:
     //ボール充填
 private:
     bool isFullBoll(BallSprite *ball);
-    bool isFallenBoll();
     void fillBoll();
     void isContactWall(Rect box);
     Rect fillBoll_createRect(Size size, Vec2 pos);
