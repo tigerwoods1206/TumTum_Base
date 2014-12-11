@@ -46,10 +46,15 @@ public:
 
     //ボール充填
 private:
+    //ボールが満杯になった事を検知
     bool isFullBoll(BallSprite *ball);
+    //ボール満タン
     void fillBoll();
+    //消された分のボールを補充
+    void refillBoll();
+    //ボールが壁に接触している事を検知
     void isContactWall(Rect box);
-    Rect fillBoll_createRect(Size size, Vec2 pos);
+    
     // in isContactWall
     Rect _floor, _leftwall, _rightwall, _ceil;
     
