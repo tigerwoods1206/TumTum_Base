@@ -24,11 +24,10 @@ Scene *GameScene_Chipmunk::createGameScene_Chipmunk()
     auto scene = Scene::createWithPhysics();
     
     //Worldに対して重力をセット
-    Vect gravity;
+    Vec2 gravity;
     gravity.setPoint(0, -50);
     scene->getPhysicsWorld()->setGravity(gravity);
     scene->getPhysicsWorld()->setSpeed(6.0f);
-    
     //物理オブジェクトを可視的にしてくれるデバックモード
     scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     
@@ -43,6 +42,8 @@ bool GameScene_Chipmunk::init()
     if ( !Scene::init() ) {
         return false;
     }
+    
+   
     
     //画面サイズサイズを取得
     auto window_size = Director::getInstance()->getWinSize();
@@ -181,17 +182,21 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
 void GameScene_Chipmunk::update(float dt) {
     this->setHilightAdjacent();
     this->delTouchedBalls();
-    this->refillBoll();
 }
 
 
 #pragma mark ---------
 #pragma mark タップ処理
 void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
+    
+    for (auto ball : _bollArray) {
+        ball->getPhysicsBody()->setEnable(false);
+    }
+
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
-    
     for (auto boll : _bollArray) {
+        
         Rect targetBox = boll->getBoundingBox();
         if (targetBox.containsPoint(touchPoint))
         {
@@ -203,7 +208,6 @@ void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &tou
 }
 
 void GameScene_Chipmunk::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
-    
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
     
@@ -229,12 +233,19 @@ void GameScene_Chipmunk::onTouchesMoved(const std::vector<cocos2d::Touch *> &tou
     
 }
 void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
+    
+    for (auto ball : _bollArray) {
+        ball->getPhysicsBody()->setEnable(true);
+    }
+    
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
     
-    for (auto boll : _bollArray) {
-        boll->setBallHilightType(BallSprite::ballHilightType::kNoTouch);
+    for (auto ball : _bollArray) {
+        ball->setBallHilightType(BallSprite::ballHilightType::kNoTouch);
     }
+    
+    this->refillBoll();
 }
 
 #pragma mark ---------
