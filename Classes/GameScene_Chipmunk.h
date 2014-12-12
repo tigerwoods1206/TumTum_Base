@@ -60,6 +60,10 @@ private:
     // in isContactWall
     Rect _floor, _leftwall, _rightwall, _ceil;
     
+    //隣接ボールハイライト
+    void setHilightAdjacent();
+    void srchAdjacent(BallSprite* first);
+    
     //ボール削除
 private:
     void delTouchedBalls();

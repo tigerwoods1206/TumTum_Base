@@ -52,6 +52,8 @@ bool BallSprite::init()
     }
     _ballContactState = ballContactState::kNone;
     _deleteState      = deleteState::kNoDelete;
+    _ballType         = ballType::kRed;
+    _ballHilightType  = ballHilightType::kNoTouch;
     return true;
 }
 
@@ -94,6 +96,28 @@ BallSprite::deleteState BallSprite::getDeleteState() {
 
     return _deleteState;
 }
+
 void BallSprite::setDeleteState(deleteState state){
     _deleteState = state;
+}
+
+BallSprite::ballType BallSprite::getBallType() {
+    return _ballType;
+}
+
+void BallSprite::setBallType(ballType state) {
+    _ballType = state;
+}
+
+BallSprite::ballHilightType BallSprite::getBallHilightType() {
+    return _ballHilightType;
+}
+void BallSprite::setBallHilightType(ballHilightType state) {
+    _ballHilightType = state;
+    if (state ==  ballHilightType::kNoTouch) {
+        this->setOpacity(255);
+    }
+    else {
+        this->setOpacity(100);
+    }
 }

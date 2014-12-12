@@ -41,9 +41,30 @@ public:
     deleteState getDeleteState();
     void setDeleteState(deleteState state);
     
+    //ボール種類判定
+    enum ballType {
+        kRed = 0,
+        kBrue,
+        kPurple,
+        kYellow
+    };
+    ballType getBallType();
+    void setBallType(ballType state);
+    
+    //ボールハイライト判定
+    enum ballHilightType {
+        kNoTouch = 0,
+        kFirstTouch,
+        kAdjacent
+    };
+    ballHilightType getBallHilightType();
+    void setBallHilightType(ballHilightType state);
+    
 protected:
     ballContactState _ballContactState;
     deleteState      _deleteState;
+    ballType         _ballType;
+    ballHilightType  _ballHilightType;
     Vec2             _centerPos;
 };
 
