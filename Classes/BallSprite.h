@@ -36,6 +36,7 @@ public:
   
     enum deleteState {
         kNoDelete = 0,
+        kPreDelete,
         kDelete
     };
     deleteState getDeleteState();
@@ -55,7 +56,9 @@ public:
     enum ballHilightType {
         kNoTouch = 0,
         kFirstTouch,
-        kAdjacent
+        kTouch,
+        kAdjacent, //touchしたボールに隣接するボール
+        kChain//ハイライトされるボール全部
     };
     ballHilightType getBallHilightType();
     void setBallHilightType(ballHilightType state);

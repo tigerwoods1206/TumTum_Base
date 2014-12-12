@@ -62,8 +62,11 @@ private:
     Rect _floor, _leftwall, _rightwall, _ceil;
     
     //隣接ボールハイライト
-    void setHilightAdjacent();
-    void srchAdjacent(BallSprite* first);
+    void setHilightAllAdjacent();
+    void srchAllAdjacent(BallSprite* cur_ball);
+    void srchNextAdjacent(BallSprite* cur_ball);
+    void setHilightTypeAll(BallSprite::ballHilightType type);
+    bool isExistTouch();
     
     //ボール削除
 private:

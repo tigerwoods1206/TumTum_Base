@@ -180,7 +180,7 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
 #pragma mark ---------
 #pragma mark update
 void GameScene_Chipmunk::update(float dt) {
-    this->setHilightAdjacent();
+    this->setHilightAllAdjacent();
     this->delTouchedBalls();
 }
 
@@ -195,12 +195,13 @@ void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &tou
 
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
-    for (auto boll : _bollArray) {
+    for (auto ball : _bollArray) {
         
-        Rect targetBox = boll->getBoundingBox();
+        Rect targetBox = ball->getBoundingBox();
         if (targetBox.containsPoint(touchPoint))
         {
-            boll->setBallHilightType(BallSprite::ballHilightType::kFirstTouch);
+            ball->setBallHilightType(BallSprite::ballHilightType::kFirstTouch);
+            ball->setDeleteState(BallSprite::deleteState::kPreDelete);
             return;
         }
     }
@@ -211,27 +212,19 @@ void GameScene_Chipmunk::onTouchesMoved(const std::vector<cocos2d::Touch *> &tou
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
     
-    BallSprite::ballType balltype;
     for (auto ball : _bollArray) {
-        if (ball->getBallHilightType() != BallSprite::ballHilightType::kNoTouch) {
-            balltype = ball->getBallType();
-            for (auto ball : _bollArray) {
-                if (ball->getBallType() == balltype) {
-                    Rect targetBox = ball->getBoundingBox();
-                    if (targetBox.containsPoint(touchPoint))
-                    {
-                        ball->setDeleteState(BallSprite::deleteState::kDelete);
-                        return;
-                    }
-                    
-                }
-                
-            }
+        Rect targetBox = ball->getBoundingBox();
+        if (
+            targetBox.containsPoint(touchPoint) &&
+            (ball->getBallHilightType()==BallSprite::ballHilightType::kAdjacent)
+            ) {
+            ball->setBallHilightType(BallSprite::ballHilightType::kTouch);
+            ball->setDeleteState(BallSprite::deleteState::kPreDelete);
+            break;
         }
     }
-
-    
 }
+
 void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
     
     for (auto ball : _bollArray) {
@@ -243,6 +236,9 @@ void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &tou
     
     for (auto ball : _bollArray) {
         ball->setBallHilightType(BallSprite::ballHilightType::kNoTouch);
+        if (ball->getDeleteState() == BallSprite::deleteState::kPreDelete) {
+            ball->setDeleteState(BallSprite::deleteState::kDelete);
+        }
     }
     
     this->refillBoll();
@@ -358,7 +354,7 @@ void GameScene_Chipmunk::refillBoll()
 }
 
 #pragma mark ---------
-#pragma mark ボール削除
+#pragma mark ボール削除 in update
 void GameScene_Chipmunk::delTouchedBalls() {
     
     std::vector<BallSprite*>::iterator tempIterator;
@@ -386,24 +382,47 @@ void GameScene_Chipmunk::delTouchedBalls() {
 
 #pragma mark ---------
 #pragma mark ボールハイライト
-void GameScene_Chipmunk::setHilightAdjacent() {
+void GameScene_Chipmunk::setHilightAllAdjacent() {
     for (BallSprite* ball : _bollArray) {
-        if (ball->getBallHilightType() == BallSprite::ballHilightType::kFirstTouch )
-        {
-            this->srchAdjacent(ball);
+        if (ball->getBallHilightType() == BallSprite::ballHilightType::kFirstTouch) {
+            this->srchAllAdjacent(ball);
+            this->srchNextAdjacent(ball);
+            ball->setBallHilightType(BallSprite::ballHilightType::kChain);
             return;
         }
     }
-}
-
-void GameScene_Chipmunk::srchAdjacent(BallSprite* first) {
     
-    if (first==NULL) {
+    if(!this->isExistTouch()) {
         return;
     }
     
-    Vec2  centerpos = first->getPosition();
-    float radius    = first->getBallRadius() * 1.05;
+    for (BallSprite* ball : _bollArray) {
+        if (ball->getBallHilightType() == BallSprite::ballHilightType::kAdjacent ) {
+            
+            ball->setBallHilightType(BallSprite::ballHilightType::kChain);
+        }
+    }
+    for (BallSprite* ball : _bollArray) {
+        if (
+            (ball->getBallHilightType() == BallSprite::ballHilightType::kTouch)
+            )
+        {
+            this->srchNextAdjacent(ball);
+            ball->setBallHilightType(BallSprite::ballHilightType::kChain);
+            return;
+        }
+    }
+    
+}
+
+void GameScene_Chipmunk::srchAllAdjacent(BallSprite* cur_ball) {
+    
+    if (cur_ball==NULL) {
+        return;
+    }
+    
+    Vec2  centerpos = cur_ball->getPosition();
+    float radius    = cur_ball->getBallRadius() * 1.05;
     float dist;
     for (BallSprite* ball : _bollArray) {
         if (ball->getBallHilightType() == BallSprite::ballHilightType::kNoTouch )
@@ -411,12 +430,59 @@ void GameScene_Chipmunk::srchAdjacent(BallSprite* first) {
             Vec2 cur_ballpos = ball->getPosition();
             dist = centerpos.getDistance(cur_ballpos);
             if (dist <= radius*2) {
-                if (ball->getBallType()==first->getBallType()) {
-                    ball->setBallHilightType(BallSprite::ballHilightType::kAdjacent);
-                    this->srchAdjacent(ball);
+                bool sametype = (ball->getBallType()==cur_ball->getBallType());
+                bool nodelete = (ball->getDeleteState()==BallSprite::deleteState::kNoDelete);
+                if (sametype && nodelete) {
+                    ball->setBallHilightType(BallSprite::ballHilightType::kChain);
+                    this->srchAllAdjacent(ball);
                 }
             }
         }
     }
     return;
+}
+
+void GameScene_Chipmunk::srchNextAdjacent(BallSprite* cur_ball) {
+    if (cur_ball==NULL) {
+        return;
+    }
+    
+    Vec2  centerpos = cur_ball->getPosition();
+    float radius    = cur_ball->getBallRadius() * 1.05;
+    float dist;
+    for (BallSprite* ball : _bollArray) {
+        if (ball->getBallHilightType() == BallSprite::ballHilightType::kChain )
+        {
+            Vec2 cur_ballpos = ball->getPosition();
+            dist = centerpos.getDistance(cur_ballpos);
+            if (dist <= radius*2) {
+                bool sametype = (ball->getBallType()==cur_ball->getBallType());
+                bool nodelete = (ball->getDeleteState()==BallSprite::deleteState::kNoDelete);
+                if (sametype && nodelete) {
+                    ball->setBallHilightType(BallSprite::ballHilightType::kAdjacent);
+                    
+                }
+            }
+        }
+    }
+    return;
+
+}
+
+void GameScene_Chipmunk::setHilightTypeAll(BallSprite::ballHilightType type) {
+    for (BallSprite* ball : _bollArray) {
+        ball->setBallHilightType(type);
+    }
+}
+
+bool GameScene_Chipmunk::isExistTouch() {
+    for (BallSprite* ball : _bollArray) {
+        if (
+            (ball->getBallHilightType() == BallSprite::ballHilightType::kTouch)
+            )
+        {
+            return true;
+        }
+    }
+    return false;
 }

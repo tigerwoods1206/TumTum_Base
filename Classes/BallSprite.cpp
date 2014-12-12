@@ -117,7 +117,20 @@ void BallSprite::setBallHilightType(ballHilightType state) {
     if (state ==  ballHilightType::kNoTouch) {
         this->setOpacity(255);
     }
-    else {
+    else if (state == ballHilightType::kTouch) {
+        this->setOpacity(255);
+    }
+    else if (state == ballHilightType::kFirstTouch) {
+        this->setOpacity(255);
+    }
+
+    else if (state == ballHilightType::kChain) {
+        this->setOpacity(40);
+    }
+    else if (state == ballHilightType::kAdjacent) {
         this->setOpacity(100);
+    }
+    else {
+        this->setOpacity(255);
     }
 }
