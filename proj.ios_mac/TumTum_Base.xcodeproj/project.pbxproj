@@ -62,6 +62,9 @@
 		50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629517ECD46A001EB2F8 /* Icon-100.png */; };
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
+		57B8584E1A3A74BA00B6DA1E /* blue_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B8584B1A3A74B900B6DA1E /* blue_ball.png */; };
+		57B8584F1A3A74BA00B6DA1E /* pur_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B8584C1A3A74B900B6DA1E /* pur_ball.png */; };
+		57B858501A3A74BA00B6DA1E /* yellow_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 57B8584D1A3A74B900B6DA1E /* yellow_ball.png */; };
 		76052C411A3953FB005A5A40 /* BallSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76052C3F1A3953FB005A5A40 /* BallSprite.cpp */; };
 		76FF31331A383D2E00C30762 /* GameScene_Chipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */; };
 		76FF31381A38503600C30762 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 76FF31371A38503600C30762 /* ball.png */; };
@@ -263,6 +266,9 @@
 		50EF629517ECD46A001EB2F8 /* Icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-100.png"; sourceTree = "<group>"; };
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
+		57B8584B1A3A74B900B6DA1E /* blue_ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue_ball.png; sourceTree = "<group>"; };
+		57B8584C1A3A74B900B6DA1E /* pur_ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pur_ball.png; sourceTree = "<group>"; };
+		57B8584D1A3A74B900B6DA1E /* yellow_ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow_ball.png; sourceTree = "<group>"; };
 		76052C3F1A3953FB005A5A40 /* BallSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BallSprite.cpp; path = ../Classes/BallSprite.cpp; sourceTree = "<group>"; };
 		76052C401A3953FB005A5A40 /* BallSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallSprite.h; path = ../Classes/BallSprite.h; sourceTree = "<group>"; };
 		76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene_Chipmunk.cpp; path = ../Classes/GameScene_Chipmunk.cpp; sourceTree = "<group>"; };
@@ -467,6 +473,9 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				57B8584B1A3A74B900B6DA1E /* blue_ball.png */,
+				57B8584C1A3A74B900B6DA1E /* pur_ball.png */,
+				57B8584D1A3A74B900B6DA1E /* yellow_ball.png */,
 				76FF31371A38503600C30762 /* ball.png */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
@@ -642,6 +651,7 @@
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				57B8584E1A3A74BA00B6DA1E /* blue_ball.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
@@ -656,7 +666,9 @@
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
+				57B858501A3A74BA00B6DA1E /* yellow_ball.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+				57B8584F1A3A74BA00B6DA1E /* pur_ball.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
