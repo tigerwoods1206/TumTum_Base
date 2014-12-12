@@ -136,7 +136,33 @@ bool GameScene_Chipmunk::init()
 #pragma mark ---------
 #pragma mark ボール生成
 BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
-    BallSprite *ball = BallSprite::createBallSprite(this, "ball.png");
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> intval(0,3);
+    
+    int val = (int)intval(mt);
+    __String *filename;
+    
+    switch (val) {
+        case 0:
+            filename = String::create("ball.png");
+            break;
+        case 1:
+            filename = String::create("pur_ball.png");
+            break;
+        case 2:
+            filename = String::create("blue_ball.png");
+            break;
+        case 3:
+            filename = String::create("yellow_ball.png");
+            break;
+        default:
+            filename = String::create("ball.png");
+            break;
+    }
+    
+    
+    BallSprite *ball = BallSprite::createBallSprite(this, filename->getCString());
     ball->setCenter(pos);
     ball->setTag(spriteType::kBall);
     _bollArray.push_back(ball);

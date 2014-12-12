@@ -13,7 +13,6 @@ BallSprite *BallSprite::createBallSprite(Node *parent, const std::string& filena
     auto pInstance = BallSprite::create();
     pInstance->setTexture(filename);
     
-    
     Size winSize = Director::getInstance()->getWinSize();
     
     //auto sprite = Sprite::create();
@@ -67,7 +66,7 @@ void BallSprite::setBallContState(ballContactState state) {
         //cpSpaceAddPostStepCallback
         //body->setDynamic(false);
         Vec2 ver = Vec2(0, 0.1);
-        body->setVelocity(ver);
+        //body->setVelocity(ver);
     }
     else {
         //body->setDynamic(true);
