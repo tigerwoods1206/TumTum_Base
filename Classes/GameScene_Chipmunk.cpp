@@ -58,13 +58,13 @@ bool GameScene_Chipmunk::init()
     
     auto left_wall =  Sprite::create();
     left_wall->setPosition(10, window_size.height/2);
-    left_wall->setTextureRect(Rect(0,0,10,window_size.height));
+    left_wall->setTextureRect(Rect(0,0,10,window_size.height*2));
     left_wall->setColor(Color3B(255,255,255));
     _leftwall = left_wall->getSpriteFrame()->getRect();
     
     auto right_wall =  Sprite::create();
     right_wall->setPosition(window_size.width, window_size.height/2);
-    right_wall->setTextureRect(Rect(0,0,10,window_size.height));
+    right_wall->setTextureRect(Rect(0,0,10,window_size.height*2));
     right_wall->setColor(Color3B(255,255,255));
     _rightwall = right_wall->getSpriteFrame()->getRect();
     
@@ -182,6 +182,7 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
 void GameScene_Chipmunk::update(float dt) {
     this->setHilightAllAdjacent();
     this->delTouchedBalls();
+    this->refillBoll();
 }
 
 
@@ -240,8 +241,6 @@ void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &tou
             ball->setDeleteState(BallSprite::deleteState::kDelete);
         }
     }
-    
-    this->refillBoll();
 }
 
 #pragma mark ---------
@@ -448,7 +447,7 @@ void GameScene_Chipmunk::srchNextAdjacent(BallSprite* cur_ball) {
     }
     
     Vec2  centerpos = cur_ball->getPosition();
-    float radius    = cur_ball->getBallRadius() * 1.05;
+    float radius    = cur_ball->getBallRadius() * 1.5;
     float dist;
     for (BallSprite* ball : _bollArray) {
         if (ball->getBallHilightType() == BallSprite::ballHilightType::kChain )
