@@ -35,6 +35,7 @@ public:
     void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *event);
     
 private:
+    
     //衝突検知
     enum spriteType {
         kNone  = 0,

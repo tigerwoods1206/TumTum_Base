@@ -134,7 +134,7 @@ bool GameScene_Chipmunk::init()
     return true;
 }
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark ボール生成
 BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
     std::random_device rd;
@@ -177,7 +177,7 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
 }
 
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark update
 void GameScene_Chipmunk::update(float dt) {
     this->setHilightAllAdjacent();
@@ -186,12 +186,12 @@ void GameScene_Chipmunk::update(float dt) {
 }
 
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark タップ処理
 void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
     
     for (auto ball : _bollArray) {
-        ball->getPhysicsBody()->setEnable(false);
+        //ball->getPhysicsBody()->setEnable(false);
     }
 
     Director* pDirector = CCDirector::getInstance();
@@ -243,7 +243,7 @@ void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &tou
     }
 }
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark 衝突処理
 bool GameScene_Chipmunk::onContactBegin(PhysicsContact& contact)
 {
@@ -300,7 +300,7 @@ void GameScene_Chipmunk::onContactPostSolve(PhysicsContact& contact, const Physi
 }
 
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark ボール満タン
 bool GameScene_Chipmunk::isFullBoll(BallSprite *ball) {
     if (ball->getBallContState()!= BallSprite::ballContactState::kNone) {
@@ -352,7 +352,7 @@ void GameScene_Chipmunk::refillBoll()
     
 }
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark ボール削除 in update
 void GameScene_Chipmunk::delTouchedBalls() {
     
@@ -379,7 +379,7 @@ void GameScene_Chipmunk::delTouchedBalls() {
     
 }
 
-#pragma mark ---------
+#pragma mark -
 #pragma mark ボールハイライト
 void GameScene_Chipmunk::setHilightAllAdjacent() {
     for (BallSprite* ball : _bollArray) {
@@ -457,9 +457,10 @@ void GameScene_Chipmunk::srchNextAdjacent(BallSprite* cur_ball) {
             if (dist <= radius*2) {
                 bool sametype = (ball->getBallType()==cur_ball->getBallType());
                 bool nodelete = (ball->getDeleteState()==BallSprite::deleteState::kNoDelete);
-                if (sametype && nodelete) {
+                bool istouch  = (ball->getBallHilightType()==BallSprite::ballHilightType::kTouch);
+                if (sametype && nodelete && !istouch ) {
                     ball->setBallHilightType(BallSprite::ballHilightType::kAdjacent);
-                    
+                    //this->srchNextAdjacent(ball);
                 }
             }
         }
