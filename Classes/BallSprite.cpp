@@ -11,6 +11,9 @@
 BallSprite *BallSprite::createBallSprite(Node *parent, const std::string& filename)
 {
     auto pInstance = BallSprite::create();
+    
+    //Texture2D *texture = Director::getInstance()->getTextureCache()->addImage(filename);
+    
     pInstance->setTexture(filename);
     
     Size winSize = Director::getInstance()->getWinSize();
@@ -35,7 +38,7 @@ BallSprite *BallSprite::createBallSprite(Node *parent, const std::string& filena
     
     parent->addChild(pInstance);
     pInstance->setPhysicsBody(pBall);
-
+   
     return pInstance;
 }
 
@@ -54,6 +57,7 @@ bool BallSprite::init()
     _deleteState      = deleteState::kNoDelete;
     _ballType         = ballType::kRed;
     _ballHilightType  = ballHilightType::kNoTouch;
+    this->setOpacity(200);
     return true;
 }
 
@@ -115,22 +119,70 @@ BallSprite::ballHilightType BallSprite::getBallHilightType() {
 void BallSprite::setBallHilightType(ballHilightType state) {
     _ballHilightType = state;
     if (state ==  ballHilightType::kNoTouch) {
-        this->setOpacity(255);
+        this->setOpacity(200);
+        this->setNormalTexture();
     }
     else if (state == ballHilightType::kTouch) {
-        this->setOpacity(255);
+        this->setOpacity(200);
+        this->setNormalTexture();
     }
     else if (state == ballHilightType::kFirstTouch) {
-        this->setOpacity(255);
+        this->setOpacity(200);
+        this->setNormalTexture();
     }
-
     else if (state == ballHilightType::kChain) {
-        this->setOpacity(40);
+        this->setOpacity(150);
+        this->setHilightTexture();
+        
     }
     else if (state == ballHilightType::kAdjacent) {
-        this->setOpacity(100);
+        this->setOpacity(255);
+        this->setHilightTexture();
     }
     else {
-        this->setOpacity(255);
+        this->setOpacity(200);
+        this->setNormalTexture();
+    }
+}
+
+void BallSprite::setNormalTexture() {
+    ballType type = this->getBallType();
+    switch (type) {
+        case ballType::kRed:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("ball.png"));
+            break;
+        case ballType::kBrue:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("blue_ball.png"));
+            break;
+        case ballType::kYellow:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("yellow_ball.png"));
+            break;
+        case ballType::kPurple:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("pur_ball.png"));
+            break;
+        default:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("ball.png"));
+            break;
+    }
+
+}
+void BallSprite::setHilightTexture() {
+    ballType type = this->getBallType();
+    switch (type) {
+        case ballType::kRed:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("hl_ball.png"));
+            break;
+        case ballType::kBrue:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("hl_blue_ball.png"));
+            break;
+        case ballType::kYellow:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("hl_yellow_ball.png"));
+            break;
+        case ballType::kPurple:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("hl_pur_ball.png"));
+            break;
+        default:
+            this->setTexture(Director::getInstance()->getTextureCache()->addImage("hl_ball.png"));
+            break;
     }
 }

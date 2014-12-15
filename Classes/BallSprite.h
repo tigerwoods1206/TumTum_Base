@@ -69,6 +69,11 @@ protected:
     ballType         _ballType;
     ballHilightType  _ballHilightType;
     Vec2             _centerPos;
+    
+private:
+    void setNormalTexture();
+    void setHilightTexture();
+    
 };
 
 #endif /* defined(__TumTum_Base__BallSprite__) */
