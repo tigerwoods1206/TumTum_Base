@@ -32,7 +32,7 @@ public:
     
     // タッチ判定
     void setCenter(Vec2 pos);
-    bool isInCircle(Vec2 pos, Node *parent);
+    static bool isInCircle(Vec2 pos, Node *parent);
   
     enum deleteState {
         kNoDelete = 0,

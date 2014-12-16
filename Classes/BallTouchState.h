@@ -12,37 +12,26 @@
 #include "cocos2d.h"
 #include "BallState.h"
 
+
 using namespace cocos2d;
 
-class BallTouchState : public BallState<bool>
-{
-    
-    class BallTouch : public BallState<BallTouchState>
-    {
-    public:
-        virtual bool init();
-        static BallTouch *createBallTouchState();
-        CREATE_FUNC(BallTouch);
-        
-    };
 
-    
+class BallTouchBegin : public State
+{
 public:
     virtual bool init();
-    static BallTouchState *createBallTouchState();
-    CREATE_FUNC(BallTouchState);
-    virtual void entryAction(BallTouchState& outerVal) {
+    static BallTouchBegin *createBallTouchState();
+    CREATE_FUNC(BallTouchBegin);
+    virtual void run() {
         
-    };
-    virtual Trans inputAction(BallTouchState& outerVal, BallState<BallTouchState>  &outNextState) {
-        //outNextState =
-        return StateBase::Trans_Me_Again;
     }
-    virtual void exitAction(BallTouchState& outerVal);
+    
+private:
+    
 };
 
 
-class BallAleadyTouch : public BallState<bool>
+class BallAleadyTouch : public State
 {
 public:
     virtual bool init();
