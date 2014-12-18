@@ -70,6 +70,8 @@
 		76063E5A1A3E9DBD00ECAEB7 /* hl_blue_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 76063E561A3E9DBD00ECAEB7 /* hl_blue_ball.png */; };
 		76063E5B1A3E9DBD00ECAEB7 /* hl_pur_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 76063E571A3E9DBD00ECAEB7 /* hl_pur_ball.png */; };
 		76063E5C1A3E9DBD00ECAEB7 /* hl_yellow_ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 76063E581A3E9DBD00ECAEB7 /* hl_yellow_ball.png */; };
+		76F881D61A414AEB00BE757D /* NotificationObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76F881D41A414AEB00BE757D /* NotificationObject.cpp */; };
+		76F881D91A41750300BE757D /* BallPoolLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76F881D71A41750300BE757D /* BallPoolLayer.cpp */; };
 		76FF31331A383D2E00C30762 /* GameScene_Chipmunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */; };
 		76FF31381A38503600C30762 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 76FF31371A38503600C30762 /* ball.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -280,7 +282,18 @@
 		76063E571A3E9DBD00ECAEB7 /* hl_pur_ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hl_pur_ball.png; sourceTree = "<group>"; };
 		76063E581A3E9DBD00ECAEB7 /* hl_yellow_ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hl_yellow_ball.png; sourceTree = "<group>"; };
 		76063E601A3EBA5500ECAEB7 /* BallState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallState.h; path = ../Classes/BallState.h; sourceTree = "<group>"; };
-		76063E631A3ED20800ECAEB7 /* BallTouchState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallTouchState.h; path = ../Classes/BallTouchState.h; sourceTree = "<group>"; };
+		76DE6BA81A429E130060A866 /* BallSearchState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallSearchState.h; path = ../Classes/BallSearchState.h; sourceTree = "<group>"; };
+		76DE6BAE1A42A49C0060A866 /* SampleTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SampleTemplate.h; path = ../Classes/SampleTemplate.h; sourceTree = "<group>"; };
+		76DE6BB01A42A7EF0060A866 /* SampleChildTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SampleChildTemplate.h; path = ../Classes/SampleChildTemplate.h; sourceTree = "<group>"; };
+		76DE6BB11A42B9D80060A866 /* BallTouchWait.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BallTouchWait.h; path = ../Classes/BallTouchWait.h; sourceTree = "<group>"; };
+		76DE6BB21A42BA200060A866 /* BallAleadyTouchBegan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BallAleadyTouchBegan.h; path = ../Classes/BallAleadyTouchBegan.h; sourceTree = "<group>"; };
+		76DE6BB51A42BAE20060A866 /* BallAleadyTouchMoved.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BallAleadyTouchMoved.h; path = ../Classes/BallAleadyTouchMoved.h; sourceTree = "<group>"; };
+		76DE6BB61A42BB1F0060A866 /* BallTouchEnd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BallTouchEnd.h; path = ../Classes/BallTouchEnd.h; sourceTree = "<group>"; };
+		76DE6BBA1A42D3D60060A866 /* BallPreSearch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BallPreSearch.h; path = ../Classes/BallPreSearch.h; sourceTree = "<group>"; };
+		76F881D41A414AEB00BE757D /* NotificationObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NotificationObject.cpp; path = ../Classes/NotificationObject.cpp; sourceTree = "<group>"; };
+		76F881D51A414AEB00BE757D /* NotificationObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationObject.h; path = ../Classes/NotificationObject.h; sourceTree = "<group>"; };
+		76F881D71A41750300BE757D /* BallPoolLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BallPoolLayer.cpp; path = ../Classes/BallPoolLayer.cpp; sourceTree = "<group>"; };
+		76F881D81A41750300BE757D /* BallPoolLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallPoolLayer.h; path = ../Classes/BallPoolLayer.h; sourceTree = "<group>"; };
 		76FF31311A383D2E00C30762 /* GameScene_Chipmunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene_Chipmunk.cpp; path = ../Classes/GameScene_Chipmunk.cpp; sourceTree = "<group>"; };
 		76FF31321A383D2E00C30762 /* GameScene_Chipmunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene_Chipmunk.h; path = ../Classes/GameScene_Chipmunk.h; sourceTree = "<group>"; };
 		76FF31371A38503600C30762 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
@@ -368,8 +381,13 @@
 				76FF31321A383D2E00C30762 /* GameScene_Chipmunk.h */,
 				76052C3F1A3953FB005A5A40 /* BallSprite.cpp */,
 				76052C401A3953FB005A5A40 /* BallSprite.h */,
-				76063E601A3EBA5500ECAEB7 /* BallState.h */,
-				76063E631A3ED20800ECAEB7 /* BallTouchState.h */,
+				76F881D41A414AEB00BE757D /* NotificationObject.cpp */,
+				76F881D51A414AEB00BE757D /* NotificationObject.h */,
+				76DE6BB31A42BAA70060A866 /* State */,
+				76F881D71A41750300BE757D /* BallPoolLayer.cpp */,
+				76F881D81A41750300BE757D /* BallPoolLayer.h */,
+				76DE6BAE1A42A49C0060A866 /* SampleTemplate.h */,
+				76DE6BB01A42A7EF0060A866 /* SampleChildTemplate.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -481,6 +499,28 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		76DE6BB31A42BAA70060A866 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				76063E601A3EBA5500ECAEB7 /* BallState.h */,
+				76DE6BB41A42BAC30060A866 /* Touch */,
+				76DE6BA81A429E130060A866 /* BallSearchState.h */,
+			);
+			name = State;
+			sourceTree = "<group>";
+		};
+		76DE6BB41A42BAC30060A866 /* Touch */ = {
+			isa = PBXGroup;
+			children = (
+				76DE6BB21A42BA200060A866 /* BallAleadyTouchBegan.h */,
+				76DE6BB51A42BAE20060A866 /* BallAleadyTouchMoved.h */,
+				76DE6BB11A42B9D80060A866 /* BallTouchWait.h */,
+				76DE6BB61A42BB1F0060A866 /* BallTouchEnd.h */,
+				76DE6BBA1A42D3D60060A866 /* BallPreSearch.h */,
+			);
+			name = Touch;
+			sourceTree = "<group>";
 		};
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
@@ -720,6 +760,8 @@
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				76FF31331A383D2E00C30762 /* GameScene_Chipmunk.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
+				76F881D61A414AEB00BE757D /* NotificationObject.cpp in Sources */,
+				76F881D91A41750300BE757D /* BallPoolLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
