@@ -7,6 +7,7 @@
 //
 
 #include "GameScene_Chipmunk.h"
+#include "BallState.h"
 #include <random>
 
 GameScene_Chipmunk::GameScene_Chipmunk()
@@ -113,6 +114,7 @@ bool GameScene_Chipmunk::init()
     listener->onTouchesBegan = CC_CALLBACK_2(GameScene_Chipmunk::onTouchesBegan, this);
     listener->onTouchesMoved = CC_CALLBACK_2(GameScene_Chipmunk::onTouchesMoved, this);
     listener->onTouchesEnded = CC_CALLBACK_2(GameScene_Chipmunk::onTouchesEnded, this);
+    
     //this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     
     //優先度100でディスパッチャーに登録
@@ -180,19 +182,20 @@ BallSprite *GameScene_Chipmunk::createSprite(Vec2 &pos){
 #pragma mark -
 #pragma mark update
 void GameScene_Chipmunk::update(float dt) {
+    
+    for (BallSprite* ball : _bollArray) {
+        ball->updateState();
+    }
     this->setHilightAllAdjacent();
     this->delTouchedBalls();
     this->refillBoll();
+    
 }
 
 
 #pragma mark -
 #pragma mark タップ処理
 void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
-    
-    for (auto ball : _bollArray) {
-        //ball->getPhysicsBody()->setEnable(false);
-    }
 
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
@@ -201,6 +204,7 @@ void GameScene_Chipmunk::onTouchesBegan(const std::vector<cocos2d::Touch *> &tou
         //Rect targetBox = ball->getBoundingBox();
         if (ball->isInCircle(touchPoint, this))
         {
+            ball->setIsTouchBegan();
             ball->setBallHilightType(BallSprite::ballHilightType::kFirstTouch);
             ball->setDeleteState(BallSprite::deleteState::kPreDelete);
             return;
@@ -219,6 +223,7 @@ void GameScene_Chipmunk::onTouchesMoved(const std::vector<cocos2d::Touch *> &tou
             ball->isInCircle(touchPoint, this) &&
             (ball->getBallHilightType()==BallSprite::ballHilightType::kAdjacent)
             ) {
+            ball->setIsTouchMoved();
             ball->setBallHilightType(BallSprite::ballHilightType::kTouch);
             ball->setDeleteState(BallSprite::deleteState::kPreDelete);
             break;
@@ -227,11 +232,11 @@ void GameScene_Chipmunk::onTouchesMoved(const std::vector<cocos2d::Touch *> &tou
 }
 
 void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event){
-    
+    /*
     for (auto ball : _bollArray) {
         ball->getPhysicsBody()->setEnable(true);
     }
-    
+    */
     Director* pDirector = CCDirector::getInstance();
     Point touchPoint = pDirector -> convertToGL(touches.at(0) -> getLocationInView());
     
@@ -239,6 +244,7 @@ void GameScene_Chipmunk::onTouchesEnded(const std::vector<cocos2d::Touch *> &tou
         ball->setBallHilightType(BallSprite::ballHilightType::kNoTouch);
         if (ball->getDeleteState() == BallSprite::deleteState::kPreDelete) {
             ball->setDeleteState(BallSprite::deleteState::kDelete);
+            ball->setIsTouchEnd();
         }
     }
 }
@@ -382,6 +388,7 @@ void GameScene_Chipmunk::delTouchedBalls() {
 #pragma mark -
 #pragma mark ボールハイライト
 void GameScene_Chipmunk::setHilightAllAdjacent() {
+    
     for (BallSprite* ball : _bollArray) {
         if (ball->getBallHilightType() == BallSprite::ballHilightType::kFirstTouch) {
             this->srchAllAdjacent(ball);

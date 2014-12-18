@@ -10,19 +10,26 @@
 #define __TumTum_Base__BallState__
 
 #include "cocos2d.h"
-#include "BallSprite.h"
 
 using namespace cocos2d;
 
 template<class PARENT>
-class State public Node {
+class State: public Node {
 protected:
-    virtual bool init();
-    State() {}
-    static State *createState();
-    CREATE_FUNC(State);
+    
 public:
+    enum StateInfo {
+        StateInfo_Continue,
+        StateInfo_Next
+    };
     virtual ~State() {}
-    // 何かする
-    virtual void run(PARENT* parent, State<PARENT>* &newState) = 0;
-};#endif /* defined(__TumTum_Base__BallState__) */
+    
+    virtual  State* run(PARENT* parent, State<PARENT>* &newState) {
+        return this;
+    }
+protected:
+    State() {}
+    
+};
+
+#endif /* defined(__TumTum_Base__BallState__) */
