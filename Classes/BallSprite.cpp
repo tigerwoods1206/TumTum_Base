@@ -57,6 +57,13 @@ bool BallSprite::init()
     _deleteState      = deleteState::kNoDelete;
     _ballType         = ballType::kRed;
     _ballHilightType  = ballHilightType::kNoTouch;
+    
+    _isTouchBegan = false;
+    _isTouchMoved = false;
+    _isTouchEnd   = false;
+    
+    curState = BallTouchWait<BallSprite>::createState();
+    
     this->setOpacity(200);
     return true;
 }
@@ -89,6 +96,39 @@ bool BallSprite::isInCircle(Vec2 pos, Node *parent) {
     else {
         return false;
     }
+}
+
+bool BallSprite::isInCircle(Touch touch) {
+    const Vec2 bpos = this->getPosition();
+    Director* pDirector = CCDirector::getInstance();
+    Point touchPoint = pDirector -> convertToGL(touch.getLocationInView());
+    float dist = touchPoint.getDistance(bpos);
+    if(dist <= getBallRadius()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+bool BallSprite::getIsTouchBegan() {
+    return _isTouchBegan;
+}
+void BallSprite::setIsTouchBegan() {
+    _isTouchBegan = true;
+}
+bool BallSprite::getIsTouchMoved() {
+    return _isTouchMoved;
+}
+void BallSprite::setIsTouchMoved() {
+    _isTouchMoved = true;
+}
+bool BallSprite::getIsTouchEnd() {
+    return _isTouchEnd;
+}
+void BallSprite::setIsTouchEnd() {
+    _isTouchEnd = true;
 }
 
 void BallSprite::setCenter(Vec2 pos) {
@@ -186,3 +226,154 @@ void BallSprite::setHilightTexture() {
             break;
     }
 }
+
+void BallSprite::updateState() {
+    
+    State<BallSprite> *newState = NULL;
+    newState = curState->run(this, newState);
+    if (newState!=curState) {
+        delete curState;
+        curState = newState;
+    }
+}
+
+BallSprite::~BallSprite() {
+    delete curState;
+}
+/*
+State<BallSprite>::StateInfo BallSprite::run(BallSprite* parent, State<BallSprite>* &newState) {
+    if (parent->getIsTouchBegan()) {
+       // newState = BallAleadyTouchBegin::createState();
+    }
+    else if (parent->getIsTouchMoved()) {
+       // newState = BallAleadyTouchMoved::createState();
+    }
+    
+    return  State<BallSprite>::StateInfo::StateInfo_Continue;
+
+}
+*/
+/*
+#pragma mark -
+#pragma mark BallTouchWait
+
+template<> bool BallSprite::BallTouchWait<BallSprite>::init() {
+    return true;
+}
+
+template<> State<BallSprite::BallSprite>::StateInfo BallSprite::BallTouchWait<BallSprite>::run(BallSprite* parent, State<BallSprite>* &newState) {
+    
+    if (parent->getIsTouchBegan()) {
+        newState = BallAleadyTouchBegin::createState();
+    }
+    else if (parent->getIsTouchMoved()) {
+        newState = BallAleadyTouchMoved::createState();
+    }
+    
+    return  State<BallSprite>::StateInfo::StateInfo_Continue;
+}
+
+#pragma mark -
+#pragma mark BallAleadyTouchBegin
+
+bool BallSprite::BallAleadyTouchBegin::init() {
+    return true;
+}
+
+BallSprite::BallAleadyTouchBegin *BallSprite::BallAleadyTouchBegin::createState() {
+    auto pInstance = (BallAleadyTouchBegin *)State<BallSprite>::create();
+    return pInstance;
+}
+
+State<BallSprite>::StateInfo BallSprite::BallAleadyTouchBegin::run(BallSprite* parent, State<BallSprite>* &newState) {
+    if (parent->getIsTouchEnd()) {
+        newState = BallEnd::createState();
+    }
+    
+    return  State<BallSprite>::StateInfo::StateInfo_Continue;
+}
+
+#pragma mark -
+#pragma mark BallAleadyTouchMoved
+
+bool BallSprite::BallAleadyTouchMoved::init() {
+    return true;
+}
+
+BallSprite::BallAleadyTouchMoved *BallSprite::BallAleadyTouchMoved::createState() {
+    auto pInstance = (BallAleadyTouchMoved *)State<BallSprite>::create();
+    return pInstance;
+}
+
+State<BallSprite>::StateInfo BallSprite::BallAleadyTouchMoved::run(BallSprite* parent, State<BallSprite>* &newState) {
+    
+    if (parent->getIsTouchEnd()) {
+        newState = BallEnd::createState();
+    }
+    
+    return  State<BallSprite>::StateInfo::StateInfo_Continue;
+}
+
+#pragma mark -
+#pragma mark BallEnd
+
+bool BallSprite::BallEnd::init() {
+    return true;
+}
+
+BallSprite::BallEnd *BallSprite::BallEnd::createState() {
+    auto pInstance = (BallEnd *)State<BallSprite>::create();
+    return pInstance;
+}
+
+State<BallSprite>::StateInfo BallSprite::BallEnd::run(BallSprite* parent, State<BallSprite>* &newState) {
+    return  State<BallSprite>::StateInfo::StateInfo_Next;
+}
+
+#pragma mark -
+#pragma mark BallPreSearch
+
+bool BallSprite::BallPreSearch::init() {
+    return true;
+}
+
+BallSprite::BallPreSearch *BallSprite::BallPreSearch::createState() {
+    auto pInstance = (BallPreSearch *)State<BallSprite>::create();
+    return pInstance;
+}
+
+State<BallSprite>::StateInfo BallSprite::BallPreSearch::run(BallSprite* parent, State<BallSprite>* &newState) {
+    return  State<BallSprite>::StateInfo::StateInfo_Next;
+}
+
+#pragma mark -
+#pragma mark BallNextChain
+
+bool BallSprite::BallNextChain::init() {
+    return true;
+}
+
+BallSprite::BallNextChain *BallSprite::BallNextChain::createState() {
+    auto pInstance = (BallNextChain *)State<BallSprite>::create();
+    return pInstance;
+}
+
+State<BallSprite>::StateInfo BallSprite::BallNextChain::run(BallSprite* parent, State<BallSprite>* &newState) {
+    return  State<BallSprite>::StateInfo::StateInfo_Next;
+}
+#pragma mark -
+#pragma mark BallPreSearch
+
+bool BallSprite::BallSearchFinish::init() {
+    return true;
+}
+
+BallSprite::BallSearchFinish *BallSprite::BallSearchFinish::createState() {
+    auto pInstance = (BallSearchFinish *)State<BallSprite>::create();
+    return pInstance;
+}
+
+State<BallSprite>::StateInfo BallSprite::BallSearchFinish::run(BallSprite* parent, State<BallSprite>* &newState) {
+    return  State<BallSprite>::StateInfo::StateInfo_Next;
+}
+*/

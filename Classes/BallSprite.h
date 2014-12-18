@@ -10,6 +10,7 @@
 #define __TumTum_Base__BallSprite__
 
 #include "cocos2d.h"
+#include "BallTouchWait.h"
 
 using namespace cocos2d;
 
@@ -32,8 +33,20 @@ public:
     
     // タッチ判定
     void setCenter(Vec2 pos);
-    static bool isInCircle(Vec2 pos, Node *parent);
-  
+    bool isInCircle(Vec2 pos, Node *parent);
+    bool isInCircle(Touch touch);
+    bool getIsTouchBegan();
+    void setIsTouchBegan();
+    bool getIsTouchMoved();
+    void setIsTouchMoved();
+    bool getIsTouchEnd();
+    void setIsTouchEnd();
+private:
+    bool _isTouchBegan;
+    bool _isTouchMoved;
+    bool _isTouchEnd;
+    
+public:
     enum deleteState {
         kNoDelete = 0,
         kPreDelete,
@@ -74,6 +87,14 @@ private:
     void setNormalTexture();
     void setHilightTexture();
     
+    //Stateクラスによる制御
+#pragma mark -
+#pragma State Class
+    
+public:
+    ~BallSprite();
+    State<BallSprite> *curState;
+    void updateState();
 };
 
 #endif /* defined(__TumTum_Base__BallSprite__) */
